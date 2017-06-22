@@ -1,17 +1,36 @@
 import React, { Component } from 'react';
-import logo from './img/logo.svg';
-import './App.css';
+import Search from './search.js';
+import TopperBoard from './topperboard.js';
+import Student from './student.js'
+import DBA from './dba.js';
+import './css/App.css';
+import Batch from './batch.js'
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-        </div>
-      </div>
-    );
-  }
+
+	constructor(props) {
+    	super(props);
+    	this.dba = new DBA();
+  	}
+   	componentWillMount() {
+
+  	}
+  	componentDidMount() {
+  	}
+	render() {
+
+	    return (
+	        <div>
+		        <Search/>
+		        <div className="container dashboard">
+	        		<div className="row">
+				        <TopperBoard/>
+				        {/*<Batch />*/}
+	        		</div>
+	        	</div>
+	      	</div>
+	    );
+	}
 }
 
 export default App;
