@@ -1,0 +1,55 @@
+.dashboard .topperboard {
+  margin-top: 15px;
+  width: 100%;
+}
+.dashboard .topperboard .topperlogo {
+  height: 76px;
+  padding-right: 35px;
+}
+.dashboard .topperboard .trophy {
+  padding-left: 70px;
+}
+.dashboard .topperboard .box {
+  display: flex;
+  color: #00625a;
+  margin: auto;
+}
+.dashboard .topperboard .box .fa {
+  font-size: 72px;
+}
+.dashboard .topperboard .box .matrix {
+  margin-top: 5px;
+}
+.dashboard .topperboard .box .grade {
+  font-size: 30px;
+  margin-bottom: -9px;
+  margin-top: -13px;
+  margin-left: -3px;
+}
+.dashboard .topperboard .box .enrollment {
+  font-size: 13px;
+}
+.dashboard .topperboard .container {
+  width: 100%;
+}
+.dashboard .topperboard .logoheader {
+  margin: auto;
+  width: 37%;
+  padding: 10px;
+  display: flex;
+}
+.dashboard .topperdetails {
+  margin-top: 15px;
+  width: 100%;
+}
+.dashboard .topperdetails .gperitoppers {
+  font-size: 60px;
+  color: #00625a;
+}
+.dashboard .branchtopper {
+  margin-top: 15px;
+  width: 100%;
+}
+.dashboard .branchtopper .left-panel {
+  color: #00625a;
+}

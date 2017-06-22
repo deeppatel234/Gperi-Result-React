@@ -1,0 +1,67 @@
+.bg-app {
+  background-color: #00625a !important;
+}
+.bg-font {
+  color: #fff;
+}
+.logos {
+  font-size: 15px;
+}
+.fa {
+  padding-right: 10px;
+}
+a {
+  color: white !important;
+}
+a:hover {
+  color: white !important;
+}
+.searchcomponent {
+  margin-top: 10px;
+  width: 100%;
+}
+.searchcomponent .md-form {
+  margin-bottom: 0px;
+}
+.searchcomponent .md-form input {
+  margin-bottom: 0px;
+  padding-bottom: 2px;
+}
+.searchcomponent .searchbtn {
+  width: 65px;
+  height: 43px;
+  padding: 0px;
+  padding-left: 6px;
+  margin-left: 0px;
+  background-color: #00625a;
+}
+.searchcomponent .filterbtn {
+  width: 87px;
+  height: 35px;
+}
+.searchcomponent .chips {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  min-height: 31px;
+}
+.searchcomponent .chips .chip {
+  margin-bottom: 7px;
+}
+.trophy {
+  font-size: 70px;
+}
+.gold {
+  color: #C98910;
+}
+.silver {
+  color: #A8A8A8;
+}
+.bronz {
+  color: #965A38;
+}
+.verticalLine {
+  border-left: 2px solid #00625a;
+}
+.verticalLine a {
+    color : #00625a !important;
+}

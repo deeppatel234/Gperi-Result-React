@@ -1,0 +1,72 @@
+@app-color : #00625a;
+.studentinfo {
+    margin-top: 15px;
+    .studentheader {
+        width: 100%;
+        color: @app-color;
+        .branchlogo {
+            font-size: 70px;
+        }
+        .enrollment {
+            font-size: 34px;
+            padding-top: 11px;
+        }
+        .name {
+            font-size: 20px;
+            margin-top: -8px;
+        }
+        .details {
+            font-size: 19px;
+            position: absolute;
+            bottom: 20px;
+        }
+    }
+    .graphs {
+        width: 100%;
+        margin-top: 15px;
+        padding-left: 0px;
+        padding-right: 0px;
+        color: @app-color;
+        .card-title {
+            padding-left: 15px;
+            padding-top: 13px;
+        }
+        .spigraph {
+            padding-left: 0px;
+            padding-right: 5px;
+            #spiGraphs {
+                display: block;
+                width: 100%;
+                height: 279px;
+                padding: 8px;
+            }
+        }
+        .backloggraph {
+            padding-left: 5px;
+            padding-right: 0px;
+            #backlogGraphs {
+                display: block;
+                width: 100%;
+                height: 279px;
+                padding: 8px;
+            }
+        }
+    }
+    .regular {
+        margin-top: 15px;
+        width: 100%;
+        padding-left: 0px;
+        padding-right: 0px;
+        .card-title {
+            color: @app-color;
+            padding-top: 13px;
+            font-size: 20px;
+            padding-left: 15px;
+        }
+        .regularresult {
+            h5 {
+                color : @app-color;
+            }
+        }
+    }
+}

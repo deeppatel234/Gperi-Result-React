@@ -1,0 +1,108 @@
+.semesterview {
+  margin-top: 15px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.semesterview .branchlogo {
+  font-size: 70px;
+}
+.semesterview .semheader {
+  width: 100%;
+  color: #00625a;
+  margin-top: -8px;
+}
+.semesterview .semheader .sem {
+  font-size: 34px;
+  padding-top: 11px;
+}
+.semesterview .semheader .batch {
+  font-size: 20px;
+}
+.semesterview .topper {
+  margin-top: 15px;
+}
+.semesterview .topper .card-title {
+  font-size: 20px;
+  padding-top: 15px;
+  padding-left: 19px;
+  color: #00625a;
+}
+.semesterview .topper .box {
+  display: flex;
+  color: #00625a;
+  padding-left: 5px;
+}
+.semesterview .topper .box .fa {
+  font-size: 75px;
+}
+.semesterview .topper .box .matrix {
+  margin-top: 5px;
+}
+.semesterview .topper .box .grade {
+  font-size: 30px;
+  margin-bottom: -9px;
+  margin-top: -13px;
+  margin-left: -3px;
+}
+.semesterview .topper .box .enrollment {
+  font-size: 13px;
+}
+.semesterview .topper .trophy {
+  padding-right: 0px;
+  padding-left: 5px;
+}
+.semesterview .semgraph {
+  width: 100%;
+  margin-top: 15px;
+}
+.semesterview .semgraph .card-title {
+  font-size: 20px;
+  padding-top: 15px;
+  padding-left: 19px;
+  color: #00625a;
+}
+.semesterview .semratio {
+  width: 100%;
+  margin-top: 15px;
+}
+.semesterview .semratio .card-title {
+  font-size: 20px;
+  padding-top: 7px;
+  padding-left: 19px;
+  color: #00625a;
+}
+.semesterview .subjectgraph {
+  width: 100%;
+  margin-top: 15px;
+}
+.semesterview .subjectgraph .card-title {
+  font-size: 20px;
+  padding-top: 7px;
+  padding-left: 19px;
+  color: #00625a;
+}
+.semesterview .subjectgraph .md-pills.pills-ins .nav-item .nav-link.active {
+  background-color: #00625a;
+  color: #fff !important;
+}
+.semesterview .subjectgraph .md-pills.pills-ins .nav-item .nav-link {
+  background-color: #fff;
+  color: #00625a !important;
+}
+.semesterview .subjectgraph .subjectname {
+  color: #00625a !important;
+  width: 100%;
+  font-size: 15px;
+}
+.semesterview .regular {
+  margin-top: 15px;
+}
+.semesterview .regular .card-title {
+  color: #00625a;
+  padding-top: 13px;
+  font-size: 20px;
+  padding-left: 15px;
+}
+.semesterview .regular .regularresult h5 {
+  color: #00625a;
+}
