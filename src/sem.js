@@ -93,6 +93,7 @@ class Sem extends Component {
         });
         self.backlogGraph();
         self.drawSubjectGraph(0);
+        console.log(self.state.grade);
     });
   }
   backlogGraph () {
@@ -314,19 +315,32 @@ class Sem extends Component {
                                 <table className="table">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Username</th>
+                                            <th>Subject Name</th>
+                                            <th>AA</th>
+                                            <th>AB</th>
+                                            <th>BB</th>
+                                            <th>BC</th>
+                                            <th>CC</th>
+                                            <th>CD</th>
+                                            <th>DD</th>
+                                            <th>FF</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
+                                        {
+                                          this.state.grade.length > 0 ?
+                                            this.state.grade.map( (key,index) => {
+                                                return ( 
+                                                  <tr key={index}>
+                                                    <td>{key.name}</td>
+                                                      {_.values(key.grades).map( (key,index) => {
+                                                          return <td key={index}>{key}</td>
+                                                      })}
+                                                  </tr>
+                                                )
+                                            })
+                                          : ""
+                                        }
                                     </tbody>
                                 </table>
                             </div>
