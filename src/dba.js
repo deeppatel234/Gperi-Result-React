@@ -3,7 +3,7 @@ import axios from 'axios';
 class DBA {
 	
 	constructor () {
-		this.hostName = "http://localhost:3003";
+		this.hostName = "https://gperiresultapi.herokuapp.com";
 		this.studentSearch = this.studentSearch.bind(this);
 	}
 	
