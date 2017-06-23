@@ -4,8 +4,8 @@ import App from './App';
 import Batch from './batch.js';
 import Student from './student.js';
 import NoMatch from './nomatch.js';
-import { BrowserRouter as Router, Route, Link, HashRouter} from 'react-router-dom'
-
+import Sem from './sem.js';
+import { Route, Link, HashRouter} from 'react-router-dom'
 import registerServiceWorker from './registerServiceWorker';
 import './css/index.css';
 
@@ -36,7 +36,8 @@ ReactDOM.render(
 	    	<Route exact path="/" component={App}/>
 	    	<Route path="/batch/:id" component={Batch}/>
 	    	<Route path="/student/:id" component={Student}/>
-	    	<Route path="*" component={NoMatch}/>
+	    	<Route path="/sem/:branch/:batch/:sem" component={Sem}/>
+	    	{/*<Route path="*" component={NoMatch}/>*/}
     	    <footer className="page-footer bg-app center-on-small-only">
 		        <div className="container-fluid">
 		            <div className="row">

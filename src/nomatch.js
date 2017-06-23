@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Search from './search.js';
 import DBA from './dba.js';
 
 class NoMatch extends Component {

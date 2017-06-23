@@ -3,7 +3,7 @@ import axios from 'axios';
 class DBA {
 	
 	constructor () {
-		this.hostName = "https://gperiresultapi.herokuapp.com";
+		this.hostName = "http://localhost:3003";
 		this.studentSearch = this.studentSearch.bind(this);
 	}
 	
@@ -17,6 +17,11 @@ class DBA {
 
 	studentInformation (searchString) {
 		return axios.post(this.hostName+"/student?enrollment="+searchString);
+	}
+
+	batchImformation (branchName) { 
+		console.log("branchName", branchName);
+		return axios.post(this.hostName+"/batch?branch="+branchName);	
 	}
 } 
 

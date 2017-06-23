@@ -20,12 +20,7 @@ class TopperBoard extends Component {
     		"ELECTRICAL ENGINEERING" :'fa fa-bolt',
     		"CIVIL ENGINEERING" : 'fa fa-building-o',
     	};
-    	this.padding = {
-    		"COMPUTER ENGINEERING" : 'fa fa-laptop',
-    		"MECHANICAL ENGINEERING" : 'fa fa-cog',
-    		"ELECTRICAL ENGINEERING" :'fa fa-bolt',
-    		"CIVIL ENGINEERING" : 'fa fa-building-o',
-    	}
+    	
     	this.dba = new DBA();
   	}
   	componentDidMount() {

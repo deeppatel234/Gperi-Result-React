@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'underscore';
 import DBA from './dba.js';
-import Search from './search.js';
-import { Route, Link } from 'react-router-dom'
 
 class Student extends Component {
    	constructor(props) {
@@ -74,7 +72,7 @@ class Student extends Component {
             }
         });
         let ctx = window.$("#spiGraphs");
-        let myChart = new window.Chart(ctx, {
+        new window.Chart(ctx, {
            type: 'bar',
            data: {
                labels: ["SEM 1", "SEM 2", "SEM 3", "SEM 4", "SEM 5", "SEM 6", "SEM 7", "SEM 8"],
@@ -148,7 +146,7 @@ class Student extends Component {
             }]
         };
 
-        let myLineChart = new window.Chart(backlogGraph, {
+        new window.Chart(backlogGraph, {
             type: 'line',
             data: data,
             options: {
