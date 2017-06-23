@@ -65,3 +65,12 @@ a:hover {
 .verticalLine a {
     color : #00625a !important;
 }
+
+.tabletd{
+  color : black !important;
+  margin-left: 0px !important;
+}
+
+.tabletd:hover{
+  color : black !important;
+}

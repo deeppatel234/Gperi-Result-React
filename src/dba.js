@@ -4,6 +4,7 @@ class DBA {
 	
 	constructor () {
 		this.hostName = "https://gperiresultapi.herokuapp.com";
+		//this.hostName = "http://localhost:3003";
 		this.studentSearch = this.studentSearch.bind(this);
 	}
 	
@@ -20,8 +21,11 @@ class DBA {
 	}
 
 	batchImformation (branchName) { 
-		console.log("branchName", branchName);
-		return axios.post(this.hostName+"/batch?branch="+branchName);	
+		return axios.post(this.hostName+"/batch?branch="+branchName);
+	}
+
+	semData (branchName, batch, sem) {
+		return axios.post(this.hostName+"/sem?branch="+branchName+"&batch=" + batch +"&sem="+sem);
 	}
 } 
 

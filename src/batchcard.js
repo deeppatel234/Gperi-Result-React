@@ -6,7 +6,6 @@ class BatchCard extends Component {
 
 	constructor(props) {
     	super(props);
-        console.log("props", props);
 
         this.state = {
             'batch' : this.props.batch,
@@ -55,7 +54,7 @@ class BatchCard extends Component {
                             <span className="semtext">Sem </span>
                             {
                                 this.state.sem.map((sem,index) => {
-                                    return <Link to={"/sem/"+this.state.branch+"/"+this.state.batch+"/"+sem} className="btn-floating btn-small"><span className="semnumber">{sem}</span></Link>
+                                    return <Link to={"/sem/"+this.state.branch+"/"+this.state.batch+"/"+sem} key={index} className="btn-floating btn-small"><span className="semnumber">{sem}</span></Link>
                                 })
                             }
                         </div>
