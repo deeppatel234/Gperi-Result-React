@@ -3,122 +3,121 @@ import _ from 'underscore';
 import DBA from './dba.js';
 
 class Student extends Component {
-   	constructor(props) {
-    	super(props);
-      this.state = {
-          studentData : [],
-          name :[],
-          enrollment : [],
-          batch : [],
-          cgpa : [],
-          spi : [],
-          cpi : [],
-          branch : []
-      }
-      this.icons = {
-        "COMPUTER ENGINEERING" : 'fa fa-laptop',
-        "MECHANICAL ENGINEERING" : 'fa fa-cog',
-        "ELECTRICAL ENGINEERING" :'fa fa-bolt',
-        "CIVIL ENGINEERING" : 'fa fa-building-o',
-      };
-    	this.dba = new DBA();
-      this.enrollment = this.props.match.params.id;
-      this.renderSpiGraph = this.renderSpiGraph.bind(this);
-      this.backlogGraph = this.backlogGraph.bind(this);
-  	}
-   	componentWillMount() {
-  	}
-  	componentDidMount() {
+    constructor(props) {
+        super(props);
+        this.state = {
+            studentData: [],
+            name: [],
+            enrollment: [],
+            batch: [],
+            cgpa: [],
+            spi: [],
+            cpi: [],
+            branch: []
+        }
+        this.icons = {
+            "COMPUTER ENGINEERING": 'fa fa-laptop',
+            "MECHANICAL ENGINEERING": 'fa fa-cog',
+            "ELECTRICAL ENGINEERING": 'fa fa-bolt',
+            "CIVIL ENGINEERING": 'fa fa-building-o',
+        };
+        this.dba = new DBA();
+        this.enrollment = this.props.match.params.id;
+        this.renderSpiGraph = this.renderSpiGraph.bind(this);
+        this.backlogGraph = this.backlogGraph.bind(this);
+    }
+    componentWillMount() {}
+    componentDidMount() {
         var self = this;
-        this.dba.studentInformation(this.enrollment).then(function (response) {
-            let data = _.sortBy(response.data, 'sem').reverse();
-            console.log("data", data);
-            let cgpa = data[0].cgpa ? data[0].cgpa.toFixed(2) : "0.00";
-            self.setState({
-                studentData : data,
-                name : data[0].name,
-                enrollment : data[0].enrollment,
-                batch : data[0].batch + " BATCH",
-                cgpa : cgpa,
-                spi : data[0].spi.toFixed(2),
-                cpi : data[0].cpi.toFixed(2),
-                branch : data[0].branch
+        this.dba.studentInformation(this.enrollment).then(function(response) {
+                let data = _.sortBy(response.data, 'sem').reverse();
+                console.log("data", data);
+                let cgpa = data[0].cgpa ? data[0].cgpa.toFixed(2) : "0.00";
+                self.setState({
+                    studentData: data,
+                    name: data[0].name,
+                    enrollment: data[0].enrollment,
+                    batch: data[0].batch + " BATCH",
+                    cgpa: cgpa,
+                    spi: data[0].spi.toFixed(2),
+                    cpi: data[0].cpi.toFixed(2),
+                    branch: data[0].branch
+                });
+                self.regular = [];
+                self.remedial = [];
+                self.backlogData = {};
+                self.spiData = {};
+                _.each(data, function(data) {
+                    if (data.sem.indexOf("Remedial") != -1) {
+                        self.remedial.push(data);
+                    } else {
+                        self.regular.push(data);
+                        self.spiData[data.sem[7]] = data.spi;
+                        self.backlogData[data.sem[7]] = data.currentsemblock;
+                    }
+                });
+                self.renderSpiGraph();
+                self.backlogGraph();
+            })
+            .catch(function(error) {
+                console.log(error);
             });
-            self.regular = [];
-            self.remedial = [];
-            self.backlogData = {};
-            self.spiData = {};
-            _.each(data,function(data){
-                if (data.sem.indexOf("Remedial") != -1) {
-                   self.remedial.push(data);
-                } else {
-                   self.regular.push(data);
-                   self.spiData[data.sem[7]] = data.spi;
-                   self.backlogData[data.sem[7]] = data.currentsemblock;
-                }
-            });
-            self.renderSpiGraph();
-            self.backlogGraph();
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-  	}
-    renderSpiGraph () {
+    }
+    renderSpiGraph() {
         var self = this;
-        _.each(_.range(8),function(i){
-            if(!self.spiData[i+1]) {
-                self.spiData[i+1] = 0;
+        _.each(_.range(8), function(i) {
+            if (!self.spiData[i + 1]) {
+                self.spiData[i + 1] = 0;
             }
         });
         let ctx = window.$("#spiGraphs");
         new window.Chart(ctx, {
-           type: 'bar',
-           data: {
-               labels: ["SEM 1", "SEM 2", "SEM 3", "SEM 4", "SEM 5", "SEM 6", "SEM 7", "SEM 8"],
-               datasets: [{
-                   label: 'SPI ',
-                   data: _.values(self.spiData),
-                   backgroundColor: [
-                       'rgba(255, 99, 132, 0.2)',
-                       'rgba(54, 162, 235, 0.2)',
-                       'rgba(255, 206, 86, 0.2)',
-                       'rgba(75, 192, 192, 0.2)',
-                       'rgba(153, 102, 255, 0.2)',
-                       'rgba(255, 159, 64, 0.2)',
-                       'rgba(255, 99, 132, 0.2)',
-                       'rgba(54, 162, 235, 0.2)',
-                   ],
-                   borderColor: [
-                       'rgba(255,99,132,1)',
-                       'rgba(54, 162, 235, 1)',
-                       'rgba(255, 206, 86, 1)',
-                       'rgba(75, 192, 192, 1)',
-                       'rgba(153, 102, 255, 1)',
-                       'rgba(255, 159, 64, 1)',
-                       'rgba(255,99,132,1)',
-                       'rgba(54, 162, 235, 1)',
-                   ],
-                   borderWidth: 1
-               }]
-           },
-           options: {
-               scales: {
-                   yAxes: [{
-                       ticks: {
-                           beginAtZero: true,
-                           max: 10
-                       }
-                   }]
-               }
-           }
-       });
+            type: 'bar',
+            data: {
+                labels: ["SEM 1", "SEM 2", "SEM 3", "SEM 4", "SEM 5", "SEM 6", "SEM 7", "SEM 8"],
+                datasets: [{
+                    label: 'SPI ',
+                    data: _.values(self.spiData),
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            max: 10
+                        }
+                    }]
+                }
+            }
+        });
     }
-    backlogGraph () {
+    backlogGraph() {
         var self = this;
-        _.each(_.range(8),function(i){
-            if(!self.backlogData[i+1]) {
-                self.backlogData[i+1] = 0;
+        _.each(_.range(8), function(i) {
+            if (!self.backlogData[i + 1]) {
+                self.backlogData[i + 1] = 0;
             }
         });
         let backlogGraph = window.$('#backlogGraphs');
@@ -165,11 +164,10 @@ class Student extends Component {
             }
         });
     }
-  	render() {
-	    return (
-		    <div>
-           {/* <Search/>*/}
-		        <div className="container studentinfo">
+    render() {
+        return (
+            <div>
+            <div className="container studentinfo">
               <div className="row">
                 <div className="col-md-12 card z-depth-1 studentheader">
                   <div className="container">
@@ -248,9 +246,10 @@ class Student extends Component {
             </div>
               </div>
             </div>
-		    </div>
-	    );
-  	}
+        </div>
+
+        );
+    }
 }
 
 export default Student;

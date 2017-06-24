@@ -4,7 +4,7 @@ class DBA {
 	
 	constructor () {
 		this.hostName = "https://gperiresultapi.herokuapp.com";
-		//this.hostName = "http://localhost:3003";
+		//this.hostName = "http://192.168.1.3:3003";
 		this.studentSearch = this.studentSearch.bind(this);
 	}
 	

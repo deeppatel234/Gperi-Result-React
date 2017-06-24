@@ -1,187 +1,195 @@
 import React, { Component } from 'react';
 import DBA from './dba.js';
+import ResultPanel from './resultpanel.js';
+import Loading from './loading.js'
 import _ from 'underscore';
 import { Link } from 'react-router-dom'
 
 class Sem extends Component {
 
-	constructor(props) {
-  	super(props);
-    this.state = {
-        branch : this.props.match.params.branch,
-        batch : this.props.match.params.batch,
-        sem : this.props.match.params.sem,
-        backlog : { pass : 0 , fail : 0},
-        ratio : 0,
-        top : {},
-        grade : {},
-        result : {}
-    }
-  	this.dba = new DBA();
-
-    this.branchDetail = {
-      'computer' : {
-        name : "COMPUTER ENGINEERING",
-        logo : "fa fa-laptop"
-      },
-      'civil' : {
-        name : "CIVIL ENGINEERING",
-        logo : "fa fa-building-o"
-      },
-      'electrical' : {
-        name : "ELECTRICAL ENGINEERING",
-        logo : "fa fa-bolt"
-      },
-      'mechanical' : {
-        name : "MECHANICAL ENGINEERING",
-        logo : "fa fa-cog"
-      },
-    };
-
-    this.trophy = {
-      1 :  "gold",
-      2 :  "silver",
-      3 :  "bronz",
-    }
-
-    this.fetchData = this.fetchData.bind(this);
-    this.backlogGraph = this.backlogGraph.bind(this);
-    this.subjectClick = this.subjectClick.bind(this);
-    this.drawSubjectGraph = this.drawSubjectGraph.bind(this);
-	}
- 	componentWillMount() {
-
-	}
-	componentWillReceiveProps (nextProps) {
-    this.setState({
-        branch : nextProps.match.params.branch,
-        batch : nextProps.match.params.batch,
-        sem : nextProps.match.params.sem,
-    });
-    this.fetchData();
-	}
-	componentDidMount() {
-    this.fetchData();
-	}
-  fetchData () {
-    var self = this;
-    this.dba.semData(this.branchDetail[this.state.branch].name,this.state.batch,this.state.sem).then(function(response) {
-        let top = _.last(_.sortBy(response.data, "spi", true), 10).reverse();
-        let backlog = { pass : 0 , fail : 0 , ratio : 0};
-        _.each(response.data, function(value) {
-            if (value.currentsemblock != 0) {
-                backlog["fail"]++;
-            } else {
-                backlog["pass"]++;
-            }
-        });
-        let grade = {};
-        _.each(response.data, function(value) {
-            _.each(value.subject, function(sub) {
-                if (!grade[sub.name]) {
-                    grade[sub.name] = { grades : {AA: 0, AB: 0, BB: 0, BC: 0, CC: 0, CD: 0, DD: 0, FF: 0} , name : sub.name}
-                }
-                grade[sub.name]['grades'][sub.subjectgrade]++;
-            });
-        });
-        self.setState({
-            top : top,
-            grade : _.values(grade),
-            backlog : backlog,
-            results : response.data,
-            ratio : ((backlog.pass / (backlog.pass + backlog.fail)) * 100).toFixed(2)
-        });
-        self.backlogGraph();
-        self.drawSubjectGraph(0);
-        console.log(self.state.grade);
-    });
-  }
-  backlogGraph () {
-    window.$('#totalbacklogGraph').empty();
-    var backlogGraph = window.$('#totalbacklogGraph');
-    var data = {
-         labels: [
-             "Pass",
-             "Fail",
-         ],
-         datasets: [{
-             data: _.values(this.state.backlog),
-             backgroundColor: [
-                 "#56ff7d",
-                 "#FF6384",
-             ],
-             hoverBackgroundColor: [
-                 "#56ff7d",
-                 "#FF6384",
-             ]
-         }]
-    };
-    new window.Chart(backlogGraph, {
-         type: 'pie',
-         data: data,
-         options: {
-             animation: {
-                 animateScale: true
-             }
-         }
-    });
-  }
-  subjectClick (event) {
-     let key = event.currentTarget.getAttribute('data-sub');
-     this.drawSubjectGraph(key);
-  }
-  drawSubjectGraph (key) {
-    if (this.subjectGraphObj) {
-      this.subjectGraphObj.destroy();
-    }
-
-    var subjectGraphViewGraph = window.$("#subjectGraphViewGraph");
-    this.subjectGraphObj = new window.Chart(subjectGraphViewGraph, {
-        type: 'bar',
-        data: {
-            labels: ["AA", "AB", "BB", "BC", "CC", "CD", "DD", "FF"],
-            datasets: [{
-                label: 'Grades ',
-                data: _.values(this.state.grade[key].grades),
-                backgroundColor: [
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 99, 132, 0.2)',
-                ],
-                borderColor: [
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255,99,132,1)',
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
+    constructor(props) {
+        super(props);
+        this.state = {
+            branch: "",
+            batch: "",
+            sem: "",
+            backlog: { pass: 0, fail: 0 },
+            ratio: 0,
+            top: {},
+            grade: {},
+            results: {},
+            isLoding : 1,
         }
-    });
-  }
-	render() {
-	    return (
+        this.dba = new DBA();
+
+        this.branchDetail = {
+            'computer': {
+                name: "COMPUTER ENGINEERING",
+                logo: "fa fa-laptop"
+            },
+            'civil': {
+                name: "CIVIL ENGINEERING",
+                logo: "fa fa-building-o"
+            },
+            'electrical': {
+                name: "ELECTRICAL ENGINEERING",
+                logo: "fa fa-bolt"
+            },
+            'mechanical': {
+                name: "MECHANICAL ENGINEERING",
+                logo: "fa fa-cog"
+            },
+        };
+
+        this.trophy = {
+            1: "gold",
+            2: "silver",
+            3: "bronz",
+        }
+
+        this.fetchData = this.fetchData.bind(this);
+        this.backlogGraph = this.backlogGraph.bind(this);
+        this.subjectClick = this.subjectClick.bind(this);
+        this.drawSubjectGraph = this.drawSubjectGraph.bind(this);
+    }
+    componentWillMount() {
+
+    }
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.match.params.sem != this.state.sem) {
+          this.fetchData(nextProps.match.params);
+        }
+    }
+    componentDidMount() {
+        this.fetchData(this.props.match.params);
+    }
+    fetchData(params) {
+        var self = this;
+        this.dba.semData(this.branchDetail[params.branch].name, params.batch, params.sem).then(function(response) {
+            let top = _.last(_.sortBy(response.data, "spi", true), 10).reverse();
+            let backlog = { pass: 0, fail: 0, ratio: 0 };
+            _.each(response.data, function(value) {
+                if (value.currentsemblock != 0) {
+                    backlog["fail"]++;
+                } else {
+                    backlog["pass"]++;
+                }
+            });
+            let grade = {};
+            _.each(response.data, function(value) {
+                _.each(value.subject, function(sub) {
+                    if (!grade[sub.name]) {
+                        grade[sub.name] = { grades: { AA: 0, AB: 0, BB: 0, BC: 0, CC: 0, CD: 0, DD: 0, FF: 0 }, name: sub.name }
+                    }
+                    grade[sub.name]['grades'][sub.subjectgrade]++;
+                });
+            });
+            self.setState({
+                branch: params.branch,
+                batch: params.batch,
+                sem: params.sem,
+                top: top,
+                grade: _.values(grade),
+                backlog: backlog,
+                results: response.data,
+                ratio: ((backlog.pass / (backlog.pass + backlog.fail)) * 100).toFixed(2),
+                isLoding : 0
+            });
+            self.backlogGraph();
+            self.drawSubjectGraph(0);
+        });
+    }
+    backlogGraph() {
+        window.$('#totalbacklogGraph').empty();
+        var backlogGraph = window.$('#totalbacklogGraph');
+        var data = {
+            labels: [
+                "Pass",
+                "Fail",
+            ],
+            datasets: [{
+                data: _.values(this.state.backlog),
+                backgroundColor: [
+                    "#56ff7d",
+                    "#FF6384",
+                ],
+                hoverBackgroundColor: [
+                    "#56ff7d",
+                    "#FF6384",
+                ]
+            }]
+        };
+        new window.Chart(backlogGraph, {
+            type: 'pie',
+            data: data,
+            options: {
+                animation: {
+                    animateScale: true
+                }
+            }
+        });
+    }
+    subjectClick(event) {
+        let key = event.currentTarget.getAttribute('data-sub');
+        this.drawSubjectGraph(key);
+    }
+    drawSubjectGraph(key) {
+        if (this.subjectGraphObj) {
+            this.subjectGraphObj.destroy();
+        }
+
+        var subjectGraphViewGraph = window.$("#subjectGraphViewGraph");
+        this.subjectGraphObj = new window.Chart(subjectGraphViewGraph, {
+            type: 'bar',
+            data: {
+                labels: ["AA", "AB", "BB", "BC", "CC", "CD", "DD", "FF"],
+                datasets: [{
+                    label: 'Grades ',
+                    data: _.values(this.state.grade[key].grades),
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255,99,132,1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    }
+    render() {
+
+      if (this.state.isLoding == 1) {
+         return <Loading />
+      }
+
+      return (
         <div className="container semesterview">
           <div className="row">
-            <div className="col-md-12">
+                          <div className="col-md-12">
               <div className="card z-depth-1 semheader">
                   <div className="container">
                       <div className="row">
@@ -348,10 +356,11 @@ class Sem extends Component {
                     </div>
                 </div>
             </div>
+            <ResultPanel data={this.state.results}/>
           </div>
         </div>
-	    );
-	}
+      );
+    }
 }
 
 export default Sem;
