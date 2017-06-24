@@ -18,7 +18,7 @@ class NoMatch extends Component {
 	render() {
 	    return (
 	        <div>
-	        	not found
+	        	
 	      	</div>
 	    );
 	}

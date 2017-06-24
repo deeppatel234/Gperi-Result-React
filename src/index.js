@@ -37,7 +37,7 @@ ReactDOM.render(
 	    	<Route path="/batch/:id" component={Batch}/>
 	    	<Route path="/student/:id" component={Student}/>
 	    	<Route path="/sem/:branch/:batch/:sem" component={Sem}/>
-	    	{/*<Route path="*" component={NoMatch}/>*/}
+	    	<Route path="*" component={NoMatch}/>
     	    <footer className="page-footer bg-app center-on-small-only">
 		        <div className="container-fluid">
 		            <div className="row">

@@ -65,7 +65,7 @@ class Search extends Component {
     	this.dba.studentSearch(event.target.value).then(function (response) {
 			_.each(response.data,function(data){
 				var line = self.icons[data['branch']] + data['enrollment'] + " | " +data['name'];
-				if(self.data.indexOf(line) == -1)
+				if(self.data.indexOf(line) === -1)
 	   				self.data.push(line);
 	    	});
 

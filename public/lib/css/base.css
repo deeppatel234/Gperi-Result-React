@@ -74,3 +74,7 @@ a:hover {
 .tabletd:hover{
   color : black !important;
 }
+
+.brandTextColor , .brandTextColor:hover {
+  color : #00625a !important;
+}

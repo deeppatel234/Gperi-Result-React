@@ -18,7 +18,7 @@ class Sem extends Component {
             top: {},
             grade: {},
             results: {},
-            isLoding : 1,
+            isLoading : 1,
         }
         this.dba = new DBA();
 
@@ -56,7 +56,7 @@ class Sem extends Component {
 
     }
     componentWillReceiveProps(nextProps) {
-        if(nextProps.match.params.sem != this.state.sem) {
+        if(nextProps.match.params.sem !== this.state.sem) {
           this.fetchData(nextProps.match.params);
         }
     }
@@ -69,7 +69,7 @@ class Sem extends Component {
             let top = _.last(_.sortBy(response.data, "spi", true), 10).reverse();
             let backlog = { pass: 0, fail: 0, ratio: 0 };
             _.each(response.data, function(value) {
-                if (value.currentsemblock != 0) {
+                if (value.currentsemblock !== 0) {
                     backlog["fail"]++;
                 } else {
                     backlog["pass"]++;
@@ -93,7 +93,7 @@ class Sem extends Component {
                 backlog: backlog,
                 results: response.data,
                 ratio: ((backlog.pass / (backlog.pass + backlog.fail)) * 100).toFixed(2),
-                isLoding : 0
+                isLoading : 0
             });
             self.backlogGraph();
             self.drawSubjectGraph(0);
@@ -182,7 +182,7 @@ class Sem extends Component {
     }
     render() {
 
-      if (this.state.isLoding == 1) {
+      if (this.state.isLoading === 1) {
          return <Loading />
       }
 
@@ -356,7 +356,8 @@ class Sem extends Component {
                     </div>
                 </div>
             </div>
-            <ResultPanel data={this.state.results}/>
+            <ResultPanel data={this.state.results} type="regular" view="sem"/>
+            <ResultPanel data={this.state.results} type="remedial" view="sem"/>
           </div>
         </div>
       );

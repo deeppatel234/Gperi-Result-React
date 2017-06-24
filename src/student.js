@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import _ from 'underscore';
 import DBA from './dba.js';
+import Loading from './loading.js';
+import ResultPanel from './resultpanel.js';
 
 class Student extends Component {
     constructor(props) {
@@ -13,7 +15,8 @@ class Student extends Component {
             cgpa: [],
             spi: [],
             cpi: [],
-            branch: []
+            branch: [],
+            isLoading : 1
         }
         this.icons = {
             "COMPUTER ENGINEERING": 'fa fa-laptop',
@@ -41,14 +44,15 @@ class Student extends Component {
                     cgpa: cgpa,
                     spi: data[0].spi.toFixed(2),
                     cpi: data[0].cpi.toFixed(2),
-                    branch: data[0].branch
+                    branch: data[0].branch,
+                    isLoading : 0
                 });
                 self.regular = [];
                 self.remedial = [];
                 self.backlogData = {};
                 self.spiData = {};
                 _.each(data, function(data) {
-                    if (data.sem.indexOf("Remedial") != -1) {
+                    if (data.sem.indexOf("Remedial") !== -1) {
                         self.remedial.push(data);
                     } else {
                         self.regular.push(data);
@@ -165,8 +169,12 @@ class Student extends Component {
         });
     }
     render() {
+
+        if (this.state.isLoading === 1) {
+            return <Loading />
+        }
+
         return (
-            <div>
             <div className="container studentinfo">
               <div className="row">
                 <div className="col-md-12 card z-depth-1 studentheader">
@@ -207,47 +215,10 @@ class Student extends Component {
                       </div>
                   </div>
                 </div>
-                <div className="col-md-12 regular">
-                <div className="card z-depth-1">
-                    <div className="card-title">Regular Exams</div>
-                    <div className="regularresult">
-                        <div className="accordion" id="accordion" role="tablist" aria-multiselectable="true">
-                            <div className="card">
-                                <div className="card-header" role="tab" id="headingOne">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        <h5 className="mb-0">
-                                            Collapsible Group Item #1 <i className="fa fa-angle-down rotate-icon"></i>
-                                        </h5>
-                                    </a>
-                                </div>
-                                <div id="collapseOne" className="collapse show" role="tabpanel" aria-labelledby="headingOne">
-                                    <div className="card-block">
-                                        aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card">
-                                <div className="card-header" role="tab" id="headingTwo">
-                                    <a className="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        <h5 className="mb-0">
-                                            Collapsible Group Item #2 <i className="fa fa-angle-down rotate-icon"></i>
-                                        </h5>
-                                    </a>
-                                </div>
-                                <div id="collapseTwo" className="collapse" role="tabpanel" aria-labelledby="headingTwo">
-                                    <div className="card-block">
-                                        Anim pariatur cliche reprehenderit, enim eiusmod high life 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <ResultPanel data={this.state.studentData} type="regular" view="student"/>
+                <ResultPanel data={this.state.studentData} type="remedial" view="student"/>
                 </div>
             </div>
-              </div>
-            </div>
-        </div>
-
         );
     }
 }
