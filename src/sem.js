@@ -3,7 +3,7 @@ import DBA from './dba.js';
 import ResultPanel from './resultpanel.js';
 import Loading from './loading.js'
 import _ from 'underscore';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 class Sem extends Component {
 
@@ -56,7 +56,7 @@ class Sem extends Component {
 
     }
     componentWillReceiveProps(nextProps) {
-        if(nextProps.match.params.sem !== this.state.sem) {
+        if(nextProps.match.params.sem !== this.state.sem || nextProps.match.params.batch !== this.state.batch || nextProps.match.params.branch !== this.state.branch) {
           this.fetchData(nextProps.match.params);
         }
     }
@@ -356,7 +356,7 @@ class Sem extends Component {
                     </div>
                 </div>
             </div>
-            <ResultPanel data={this.state.results} type="regular" view="sem"/>
+            <ResultPanel data={this.state.results} type="regular" view="sem" dataTable="true"/>
             <ResultPanel data={this.state.results} type="remedial" view="sem"/>
           </div>
         </div>

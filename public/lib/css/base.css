@@ -78,3 +78,69 @@ a:hover {
 .brandTextColor , .brandTextColor:hover {
   color : #00625a !important;
 }
+
+.dataTables_wrapper a{
+  color : #00625a !important;
+}
+
+table.dataTable thead th {
+    position: relative;
+    background-image: none !important;
+}
+ 
+table.dataTable thead th.sorting:after,
+table.dataTable thead th.sorting_asc:after,
+table.dataTable thead th.sorting_desc:after {
+    position: absolute;
+    top: 12px;
+    right: 8px;
+    display: block;
+    font-family: FontAwesome;
+}
+
+table.dataTable thead th.sorting:after {
+    content: "\f0dc";
+    color: #191717;
+    font-size: 0.8em;
+    padding-top: 0.12em;
+}
+table.dataTable thead th.sorting_asc:after {
+    content: "\f160";
+}
+table.dataTable thead th.sorting_desc:after {
+    content: "\f161"
+}
+
+table.dataTable .resultDataTable_length{
+    padding-left: 0px;
+    margin-left: 10px;
+    border-right-width: 1px;
+    margin-right: 10px;
+}
+
+.dataTables_wrapper .row {
+    width: 100%;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+.dataTables_length {
+    float: left;
+    padding-left: 12px;
+}
+
+.dataTables_filter {
+  float: right;
+}
+
+.dataTables_length .form-control {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.pagination li{
+    padding-left: 15px;
+}
+
+.dataTables_paginate {
+  float: right;
+}

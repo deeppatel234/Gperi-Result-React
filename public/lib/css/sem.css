@@ -81,11 +81,11 @@
   padding-left: 19px;
   color: #00625a;
 }
-.semesterview .subjectgraph .md-pills.pills-ins .nav-item .nav-link.active {
+.semesterview .md-pills.pills-ins .nav-item .nav-link.active {
   background-color: #00625a;
   color: #fff !important;
 }
-.semesterview .subjectgraph .md-pills.pills-ins .nav-item .nav-link {
+.semesterview .md-pills.pills-ins .nav-item .nav-link {
   background-color: #fff;
   color: #00625a !important;
 }
