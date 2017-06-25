@@ -28,12 +28,16 @@ class DBA {
 		return axios.post(this.hostName+"/sem?branch="+branchName+"&batch=" + batch +"&sem="+sem);
 	}
 
-	batchTop (branchName, batch) {
-		return axios.post(this.hostName+"/batchtop?branch="+branchName+"&batch=" + batch);
+	batchTop (branchName, batch , maxSem) {
+		return axios.post(this.hostName+"/batchtop?branch="+branchName+"&batch=" + batch + "&maxSem=" + maxSem);
 	}
 
 	branchTop (branchName) {
 		return axios.post(this.hostName+"/branchtop?branch="+branchName);	
+	}
+
+	batchGraph (branchName) { 
+		return axios.post(this.hostName+"/batchgraph?branch="+branchName);
 	}
 } 
 

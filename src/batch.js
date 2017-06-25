@@ -31,11 +31,18 @@ class Batch extends Component {
 	}
     fatchData (branch) {
         var self = this;
-        this.dba.batchImformation(this.info.branchDetail[branch].name).then(function (response) {
-            self.setState({
-              'branch' : branch, 
-              'data' : response.data,
-              'isLoading' : 0
+        this.dba.batchImformation(this.info.branchDetail[branch].name).then(function (batchImformation) {
+            
+            self.dba.batchGraph(self.info.branchDetail[branch].name).then(function (batchGraph) {
+                var fail = _.groupBy(batchGraph.data.fail, function(f) { return f._id.batch });
+                var pass = _.groupBy(batchGraph.data.pass, function(p) { return p._id.batch });
+                self.setState({
+                  'branch' : branch, 
+                  'data' : batchImformation.data,
+                  'isLoading' : 0,
+                  'fail' : fail,
+                  'pass' : pass
+                });
             });
         });
     }
@@ -66,7 +73,7 @@ class Batch extends Component {
             		</div>
                       {
                         _.keys(this.state.data).sort().reverse().map( ( key, index ) => {
-                              return <BatchCard key={index} data={this.state.data[key]} batch={key} branch={this.state.branch}/>
+                              return <BatchCard key={index} data={this.state.data[key]} batch={key} pass={this.state.pass[key]} fail={this.state.fail[key]} branch={this.state.branch}/>
                         } )
                       }
            	   </div>

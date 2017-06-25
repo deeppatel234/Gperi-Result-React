@@ -27,8 +27,9 @@ class BatchCard extends Component {
         this.fetchData(this.props);
 	}
     fetchData (params) {
+        var maxSem = _.max(params.data, function(d){ return d.sem.replace("BE SEM ","")[0]; }).sem.replace("BE SEM ","")[0];
         var self  = this;
-        self.dba.batchTop(this.info.branchDetail[params.branch].name,params.batch).then(function(response) {
+        self.dba.batchTop(this.info.branchDetail[params.branch].name,params.batch,maxSem).then(function(response) {
             if (response.data.cgpa[0].cgpa === undefined) {
                 response.data.cgpa = [];
             }
@@ -39,16 +40,34 @@ class BatchCard extends Component {
                  top : response.data,
                  isLoading : 0
             });
-            self.renderGraph()
+            self.renderGraph(params);
         });
     }
-    renderGraph () {
+    renderGraph (params) {
+       
+        var passData = {};
+        _.each(params.pass,function(p){
+            passData[p._id.sem.replace("BE SEM ","")[0]] = p.pass;
+        });
+        var failData = {};
+        _.each(params.fail,function(f){
+            failData[f._id.sem.replace("BE SEM ","")[0]] = f.fail;
+        });
+
+        _.each(_.range(8),function(i){
+            if(!passData[i+1]) {
+                passData[i+1] = 0;
+            }
+            if(!failData[i+1]) {
+                failData[i+1] = 0;
+            }
+        });
 
         var options = {
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero:true
+                        beginAtZero:true,
                     }
                 }]
             }
@@ -60,12 +79,12 @@ class BatchCard extends Component {
               datasets: [
                 {
                   label: "Pass",
-                  backgroundColor: '#388e3c',
-                  data: [133,221,783,2478,133,221,783,2478]
+                  backgroundColor: '#81C784',
+                  data: _.values(passData)
                 }, {
                   label: "Fail",
-                  backgroundColor: "#e53935",
-                  data: [408,547,675,734,133,221,783,2478]
+                  backgroundColor: "#E57373",
+                  data: _.values(failData)
                 }
               ]
             };
