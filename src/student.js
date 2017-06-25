@@ -30,7 +30,6 @@ class Student extends Component {
         var self = this;
         this.dba.studentInformation(this.enrollment).then(function(response) {
                 let data = _.sortBy(response.data, 'sem').reverse();
-                console.log("data", data);
                 let cgpa = data[0].cgpa ? data[0].cgpa.toFixed(2) : "0.00";
                 self.setState({
                     studentData: data,
@@ -70,8 +69,12 @@ class Student extends Component {
                 self.spiData[i + 1] = 0;
             }
         });
-        let ctx = window.$("#spiGraphs");
-        new window.Chart(ctx, {
+
+        if(this.spiGraphsObject) {
+            self.spiGraphsObject.destroy();
+        }
+
+        this.spiGraphsObject = new window.Chart(document.getElementById("spiGraphs"), {
             type: 'bar',
             data: {
                 labels: ["SEM 1", "SEM 2", "SEM 3", "SEM 4", "SEM 5", "SEM 6", "SEM 7", "SEM 8"],
@@ -120,7 +123,10 @@ class Student extends Component {
                 self.backlogData[i + 1] = 0;
             }
         });
-        let backlogGraph = window.$('#backlogGraphs');
+
+        if(this.backlogGraphsObject) {
+            self.backlogGraphsObject.destroy();
+        }
         let data = {
             labels: ["SEM 1", "SEM 2", "SEM 3", "SEM 4", "SEM 5", "SEM 6", "SEM 7", "SEM 8"],
             datasets: [{
@@ -145,7 +151,7 @@ class Student extends Component {
             }]
         };
 
-        new window.Chart(backlogGraph, {
+        this.backlogGraphsObject = new window.Chart(document.getElementById("backlogGraphs"), {
             type: 'line',
             data: data,
             options: {

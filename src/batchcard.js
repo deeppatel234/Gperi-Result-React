@@ -44,7 +44,11 @@ class BatchCard extends Component {
         });
     }
     renderGraph (params) {
-       
+        var self = this;
+        if(this.batchGraphObject) {
+            self.batchGraphObject.destroy();
+        }
+
         var passData = {};
         _.each(params.pass,function(p){
             passData[p._id.sem.replace("BE SEM ","")[0]] = p.pass;
@@ -89,7 +93,7 @@ class BatchCard extends Component {
               ]
             };
         
-        new window.Chart(document.getElementById("batchGraph" + this.state.batch), {
+        this.batchGraphObject = new window.Chart(document.getElementById("batchGraph" + this.state.batch), {
             type: 'bar',
             data: data,
             options: options

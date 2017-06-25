@@ -76,8 +76,11 @@ class Sem extends Component {
         });
     }
     backlogGraph() {
-        window.$('#totalbacklogGraph').empty();
-        var backlogGraph = window.$('#totalbacklogGraph');
+        var self = this;
+        if(this.backlogGraphObject) {
+            self.backlogGraphObject.destroy();
+        }
+
         var data = {
             labels: [
                 "Pass",
@@ -95,7 +98,7 @@ class Sem extends Component {
                 ]
             }]
         };
-        new window.Chart(backlogGraph, {
+        this.backlogGraphObject = new window.Chart(document.getElementById("totalbacklogGraph"), {
             type: 'pie',
             data: data,
             options: {
@@ -113,9 +116,7 @@ class Sem extends Component {
         if (this.subjectGraphObj) {
             this.subjectGraphObj.destroy();
         }
-
-        var subjectGraphViewGraph = window.$("#subjectGraphViewGraph");
-        this.subjectGraphObj = new window.Chart(subjectGraphViewGraph, {
+        this.subjectGraphObj = new window.Chart(document.getElementById("subjectGraphViewGraph"), {
             type: 'bar',
             data: {
                 labels: ["AA", "AB", "BB", "BC", "CC", "CD", "DD", "FF"],
