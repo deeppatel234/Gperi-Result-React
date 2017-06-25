@@ -27,6 +27,14 @@ class DBA {
 	semData (branchName, batch, sem) {
 		return axios.post(this.hostName+"/sem?branch="+branchName+"&batch=" + batch +"&sem="+sem);
 	}
+
+	batchTop (branchName, batch) {
+		return axios.post(this.hostName+"/batchtop?branch="+branchName+"&batch=" + batch);
+	}
+
+	branchTop (branchName) {
+		return axios.post(this.hostName+"/branchtop?branch="+branchName);	
+	}
 } 
 
 export default DBA;

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import _ from 'underscore';
 import DBA from './dba.js';
 import Loading from './loading.js';
+import Info from './info.js';
 import ResultPanel from './resultpanel.js';
 
 class Student extends Component {
@@ -18,13 +19,8 @@ class Student extends Component {
             branch: [],
             isLoading : 1
         }
-        this.icons = {
-            "COMPUTER ENGINEERING": 'fa fa-laptop',
-            "MECHANICAL ENGINEERING": 'fa fa-cog',
-            "ELECTRICAL ENGINEERING": 'fa fa-bolt',
-            "CIVIL ENGINEERING": 'fa fa-building-o',
-        };
         this.dba = new DBA();
+        this.info = new Info();
         this.enrollment = this.props.match.params.id;
         this.renderSpiGraph = this.renderSpiGraph.bind(this);
         this.backlogGraph = this.backlogGraph.bind(this);
@@ -181,7 +177,7 @@ class Student extends Component {
                   <div className="container">
                       <div className="row">
                           <div className="col-md-1 branchlogo">
-                              <i className={this.icons[this.state.branch]} aria-hidden="true"></i>
+                              <i className={this.info.iconsClass[this.state.branch]} aria-hidden="true"></i>
                           </div>
                           <div className="col-md-6">
                               <div className="enrollment">{this.state.enrollment}</div>

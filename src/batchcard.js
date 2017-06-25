@@ -1,32 +1,87 @@
 import React, { Component } from 'react';
 import _ from 'underscore';
-import { Link } from 'react-router-dom'
+import DBA from './dba.js';
+import Info from './info.js';
+import { Link } from 'react-router-dom';
+import Loading from './loading.js';
 
 class BatchCard extends Component {
 
 	constructor(props) {
     	super(props);
-
+        this.dba = new DBA();
+        this.info = new Info();
+        this.fetchData = this.fetchData.bind(this);
+        this.renderGraph = this.renderGraph.bind(this);
         this.state = {
-            'batch' : this.props.batch,
-            'sem' : _.sortBy(_.map(_.pluck(this.props.data, 'sem'), function(sem){ return sem.replace("BE SEM ","")[0] }),function(num){return num}),
-            'branch' : this.props.branch
+            isLoading : 1
         }
 	}
  	componentWillMount() {
 
 	}
 	componentWillReceiveProps (nextProps) {
-		this.setState({
-            'batch' : nextProps.batch,
-            'sem' : _.sortBy(_.map(_.pluck(nextProps.data, 'sem'), function(sem){ return sem.replace("BE SEM ","")[0] }),function(num){return num}),
-            'branch' : nextProps.branch
-        });
+        this.fetchData(nextProps);
 	}
 	componentDidMount() {
-    
+        this.fetchData(this.props);
 	}
+    fetchData (params) {
+        var self  = this;
+        self.dba.batchTop(this.info.branchDetail[params.branch].name,params.batch).then(function(response) {
+            if (response.data.cgpa[0].cgpa === undefined) {
+                response.data.cgpa = [];
+            }
+            self.setState({
+                'batch' : params.batch,
+                'sem' : _.sortBy(_.map(_.pluck(params.data, 'sem'), function(sem){ return sem.replace("BE SEM ","")[0] }),function(num){return num}),
+                'branch' : params.branch,
+                 top : response.data,
+                 isLoading : 0
+            });
+            self.renderGraph()
+        });
+    }
+    renderGraph () {
+
+        var options = {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+
+        var data = 
+            {
+              labels: ["SEM 1", "SEM 2", "SEM 3", "SEM 4", "SEM 5", "SEM 6", "SEM 7", "SEM 8"],
+              datasets: [
+                {
+                  label: "Pass",
+                  backgroundColor: '#388e3c',
+                  data: [133,221,783,2478,133,221,783,2478]
+                }, {
+                  label: "Fail",
+                  backgroundColor: "#e53935",
+                  data: [408,547,675,734,133,221,783,2478]
+                }
+              ]
+            };
+        
+        new window.Chart(document.getElementById("batchGraph" + this.state.batch), {
+            type: 'bar',
+            data: data,
+            options: options
+        });
+    }
 	render() {
+
+        if (this.state.isLoading === 1) {
+            return <Loading />
+        }
+
 	    return (
 		        <div className="col-md-6 batchview">
                 <div className="card z-depth-1">
@@ -40,12 +95,59 @@ class BatchCard extends Component {
                                     <div className="col-md-8">
                                         <ul className="nav nav-tabs md-pills pills-ins" role="tablist">
                                             <li className="nav-item">
-                                                <a className="nav-link active" data-toggle="tab" href="#panel11" role="tab"><i className="fa fa-bar-chart"></i> Graph</a>
+                                                <a className="nav-link active" data-toggle="tab" href={"#batchgraph"+this.state.batch} role="tab"><i className="fa fa-bar-chart"></i> Graph</a>
                                             </li>
                                             <li className="nav-item">
-                                                <a className="nav-link" data-toggle="tab" href="#panel12" role="tab"><i className="fa fa-trophy"></i> Topper</a>
+                                                <a className="nav-link" data-toggle="tab" href={"#batchtopper"+this.state.batch} role="tab"><i className="fa fa-trophy"></i> Topper</a>
                                             </li>
                                         </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="tab-content">
+                            <div className="tab-pane fade in show active" id={"batchgraph"+this.state.batch} role="tabpanel" style={{height: '250px'}}>
+                                <div className="batchgraph">
+                                    <canvas id={"batchGraph" + this.state.batch} style={{display: 'block' , width: '500px' , height: '250px'}} width="500" height="250"></canvas>
+                                </div>
+                            </div>
+                            <div className="tab-pane fade in show " id={"batchtopper"+this.state.batch} role="tabpanel" style={{minHeight: '215px'}}>
+                                <div className="container">
+                                    <div className="row" style={{marginTop: '35px'}}>
+                                        {
+                                            this.state.top.cgpa.map( (key,index) => {
+                                                return (
+                                                    <div className="box" key={index}>
+                                                        <div className="trophy">
+                                                            <i className={"fa fa-trophy " + this.info.trophy[index+1]} aria-hidden="true"></i>
+                                                        </div>
+                                                        <div>
+                                                            <div className="matrix">CGPA</div>
+                                                            <div className="grade">{this.info.round(key.cgpa)}</div>
+                                                            <div className="enrollment">{key.enrollment}</div>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                    <div className="row" style={{marginTop: '35px'}}>
+                                        {
+                                            this.state.top.cpi.map( (key,index) => {
+                                                return (
+                                                    <div className="box" key={index}>
+                                                        <div className="trophy">
+                                                            <i className={"fa fa-trophy " + this.info.trophy[index+1]} aria-hidden="true"></i>
+                                                        </div>
+                                                        <div>
+                                                            <div className="matrix">CPI</div>
+                                                            <div className="grade">{this.info.round(key.cpi)}</div>
+                                                            <div className="enrollment">{key.enrollment}</div>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            })
+                                        }
                                     </div>
                                 </div>
                             </div>

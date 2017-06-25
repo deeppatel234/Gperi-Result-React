@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import DBA from './dba.js';
 import logo from './img/logo.svg';
+import Info from './info.js';
 import _ from 'underscore';
 
 class TopperBoard extends Component {
@@ -22,6 +23,7 @@ class TopperBoard extends Component {
     	};
     	
     	this.dba = new DBA();
+    	this.info = new Info();
   	}
   	componentDidMount() {
    		var self = this;
@@ -76,7 +78,7 @@ class TopperBoard extends Component {
 	                            	<div className="col-md-3 verticalLine box" key={"gold"+items.grade}>
 		                                <div>
 		                                	<Link to={"student/"+items.enrollment}>
-		                                    <i className={this.icons[items.branch]}></i>
+		                                    <i className={this.info.iconsClass[items.branch]}></i>
 		                                    </Link>
 		                                </div>
 		                                <div>
@@ -101,7 +103,7 @@ class TopperBoard extends Component {
 	                            	<div className="col-md-3 verticalLine box" key={"silver"+items.grade}>
 		                                <div>
 		                                    <Link to={"student/"+items.enrollment}>
-		                                    <i className={this.icons[items.branch]}></i>
+		                                    <i className={this.info.iconsClass[items.branch]}></i>
 		                                    </Link>
 		                                </div>
 		                                <div>
@@ -126,7 +128,7 @@ class TopperBoard extends Component {
 	                            	<div className="col-md-3 verticalLine box" key={"bronz"+items.grade}>
 		                                <div>
 		                                    <Link to={"student/"+items.enrollment}>
-		                                    <i className={this.icons[items.branch]}></i>
+		                                    <i className={this.info.iconsClass[items.branch]}></i>
 		                                    </Link>
 		                                </div>
 		                                <div>

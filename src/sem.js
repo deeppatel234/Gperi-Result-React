@@ -3,6 +3,7 @@ import DBA from './dba.js';
 import ResultPanel from './resultpanel.js';
 import Loading from './loading.js'
 import _ from 'underscore';
+import Info from './info.js';
 import { Link } from 'react-router-dom';
 
 class Sem extends Component {
@@ -21,32 +22,7 @@ class Sem extends Component {
             isLoading : 1,
         }
         this.dba = new DBA();
-
-        this.branchDetail = {
-            'computer': {
-                name: "COMPUTER ENGINEERING",
-                logo: "fa fa-laptop"
-            },
-            'civil': {
-                name: "CIVIL ENGINEERING",
-                logo: "fa fa-building-o"
-            },
-            'electrical': {
-                name: "ELECTRICAL ENGINEERING",
-                logo: "fa fa-bolt"
-            },
-            'mechanical': {
-                name: "MECHANICAL ENGINEERING",
-                logo: "fa fa-cog"
-            },
-        };
-
-        this.trophy = {
-            1: "gold",
-            2: "silver",
-            3: "bronz",
-        }
-
+        this.info = new Info();
         this.fetchData = this.fetchData.bind(this);
         this.backlogGraph = this.backlogGraph.bind(this);
         this.subjectClick = this.subjectClick.bind(this);
@@ -65,7 +41,7 @@ class Sem extends Component {
     }
     fetchData(params) {
         var self = this;
-        this.dba.semData(this.branchDetail[params.branch].name, params.batch, params.sem).then(function(response) {
+        this.dba.semData(this.info.branchDetail[params.branch].name, params.batch, params.sem).then(function(response) {
             let top = _.last(_.sortBy(response.data, "spi", true), 10).reverse();
             let backlog = { pass: 0, fail: 0, ratio: 0 };
             _.each(response.data, function(value) {
@@ -194,7 +170,7 @@ class Sem extends Component {
                   <div className="container">
                       <div className="row">
                           <div className="col-md-1 branchlogo">
-                              <i className={this.branchDetail[this.state.branch].logo} ></i>
+                              <i className={this.info.branchDetail[this.state.branch].logo} ></i>
                           </div>
                           <div className="col-md-6">
                               <div className="sem">SEM {this.state.sem}</div>
@@ -222,7 +198,7 @@ class Sem extends Component {
                                                   return ( 
                                                   <div className="box" key={index}>
                                                       <div className="trophy">
-                                                          <i className={"fa fa-trophy " + this.trophy[index+1]}></i>
+                                                          <i className={"fa fa-trophy " + this.info.trophy[index+1]}></i>
                                                       </div>
                                                       <div style={{paddingTop: '12px'}}>
                                                           <div className="matrix">SPI</div>

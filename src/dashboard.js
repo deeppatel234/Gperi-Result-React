@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import Search from './search.js';
 import TopperBoard from './topperboard.js';
 import DBA from './dba.js';
-import './css/App.css';
+import BranchTopperBoard from './branchtopperboard.js';
 
-class App extends Component {
+class Dashboard extends Component {
 
 	constructor(props) {
     	super(props);
@@ -16,13 +16,16 @@ class App extends Component {
   	componentDidMount() {
   	}
 	render() {
-
 	    return (
 	        <div>
 		        <Search/>
 		        <div className="container dashboard">
 	        		<div className="row">
 				        <TopperBoard/>
+				        <BranchTopperBoard branch="computer"/>
+				        <BranchTopperBoard branch="civil"/>
+				        <BranchTopperBoard branch="electrical"/>
+				        <BranchTopperBoard branch="mechanical"/>
 	        		</div>
 	        	</div>
 	      	</div>
@@ -30,4 +33,4 @@ class App extends Component {
 	}
 }
 
-export default App;
+export default Dashboard;
