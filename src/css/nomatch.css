@@ -19,5 +19,11 @@
     text-transform: uppercase;
     font-size: 80px;
     max-width: 90%;
-    margin: 35px auto 50px;
+    margin: 35px auto 20px;
+}
+
+.extraInfo {
+    color: #FFF;
+    font-size: 30px;
+    margin-bottom: 50px;
 }

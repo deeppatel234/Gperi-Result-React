@@ -4,31 +4,35 @@ import DBA from './dba.js';
 import Loading from './loading.js';
 import Info from './info.js';
 import ResultPanel from './resultpanel.js';
+import NoMatch from './nomatch.js';
 
 class Student extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            studentData: [],
-            name: [],
-            enrollment: [],
-            batch: [],
-            cgpa: [],
-            spi: [],
-            cpi: [],
-            branch: [],
+            enrollment: "",
             isLoading : 1
         }
         this.dba = new DBA();
         this.info = new Info();
-        this.enrollment = this.props.match.params.id;
         this.renderSpiGraph = this.renderSpiGraph.bind(this);
         this.backlogGraph = this.backlogGraph.bind(this);
+        this.fetchData = this.fetchData.bind(this);
     }
-    componentWillMount() {}
+    componentWillReceiveProps (nextProps) {
+        this.fetchData(nextProps);
+    }
     componentDidMount() {
+        this.fetchData(this.props);
+    }
+    fetchData (params) {
+        if(params.match.params.id === this.state.enrollment) {
+            return;
+        }
         var self = this;
-        this.dba.studentInformation(this.enrollment).then(function(response) {
+        this.dba.studentInformation(params.match.params.id).then(function(response) {
+            
+            if(response.data.length > 0) {
                 let data = _.sortBy(response.data, 'sem').reverse();
                 let cgpa = data[0].cgpa ? data[0].cgpa.toFixed(2) : "0.00";
                 self.setState({
@@ -40,7 +44,8 @@ class Student extends Component {
                     spi: data[0].spi.toFixed(2),
                     cpi: data[0].cpi.toFixed(2),
                     branch: data[0].branch,
-                    isLoading : 0
+                    isLoading : 0,
+                    studentNotFound : 0,
                 });
                 self.regular = [];
                 self.remedial = [];
@@ -57,10 +62,16 @@ class Student extends Component {
                 });
                 self.renderSpiGraph();
                 self.backlogGraph();
-            })
-            .catch(function(error) {
-                console.log(error);
-            });
+            } else {
+                self.setState({
+                    studentNotFound : 1,
+                    isLoading : 0,
+                });
+            }
+        })
+        .catch(function(error) {
+            console.log(error);
+        });
     }
     renderSpiGraph() {
         var self = this;
@@ -176,6 +187,10 @@ class Student extends Component {
             return <Loading />
         }
 
+        if(this.state.studentNotFound === 1) {
+            return <NoMatch extraInfo={this.props.match.params.id} errorMessage="student not found"/>
+        }
+
         return (
             <div className="container studentinfo">
               <div className="row">
@@ -189,7 +204,7 @@ class Student extends Component {
                               <div className="enrollment">{this.state.enrollment}</div>
                               <div className="name">{this.state.name}</div>
                           </div>
-                          <div className="col-md-5" style={{position: 'relative'}}>
+                          <div className="col-md-5">
                               <div className="details">{this.state.batch} | CGPA : {this.state.cgpa} | SPI : {this.state.spi} | CPI : {this.state.cpi}</div>
                           </div>
                       </div>

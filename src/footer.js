@@ -22,7 +22,7 @@ class Footer extends Component {
             </div>
             <div className="footer-copyright">
                 <div className="container-fluid">
-                    Developed & Design By <a target="_blank" href="https://www.linkedin.com/in/deeppatel234/"> Deep Patel </a>
+                    Developed & Design By <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/deeppatel234/"> Deep Patel </a>
                 </div>
             </div>
           </footer>

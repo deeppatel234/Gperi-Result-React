@@ -132,7 +132,7 @@ class ResultPanel extends Component {
                                         </a>
                                     </div>
                                     <div id={"collapse"+ props.type + index} className="collapse" role="tabpanel" aria-labelledby={"heading" + props.type + index}>
-                                        <div className="card-block">
+                                        <div className="card-block" style={{overflow: 'auto'}}>
                                             {
                                               props.view === "sem" ? <Link to={"student/"+key.enrollment} target="_blank" className="brandTextColor"><i className="fa fa-user-o"></i> Get Details</Link> : ""
                                             }
@@ -174,8 +174,8 @@ class ResultPanel extends Component {
                                               </table>
                                               {
                                                 key.currentsemblock === 0 ?
-                                                  <div className="alert alert-success">Current Sem Backlog : {key.currentsemblock}<div style={{display: 'inline',float : 'right'}}>{props.printPoint("SPI",key.spi)} | {props.printPoint("CPI",key.cpi)} {props.printPoint("CGPA",key.cgpa)}</div></div> :
-                                                  <div className="alert alert-danger">Current Sem Backlog : {key.currentsemblock}<div style={{display: 'inline',float : 'right'}}>{props.printPoint("SPI",key.spi)} | {props.printPoint("CPI",key.cpi)} {props.printPoint("CGPA",key.cgpa)}</div></div>
+                                                  <div className="alert alert-success" style={{overflow: 'auto'}}>Current Sem Backlog : {key.currentsemblock}<div style={{display: 'inline',float : 'right'}}>{props.printPoint("SPI",key.spi)} | {props.printPoint("CPI",key.cpi)} {props.printPoint("CGPA",key.cgpa)}</div></div> :
+                                                  <div className="alert alert-danger" style={{overflow: 'auto'}}>Current Sem Backlog : {key.currentsemblock}<div style={{display: 'inline',float : 'right'}}>{props.printPoint("SPI",key.spi)} | {props.printPoint("CPI",key.cpi)} {props.printPoint("CGPA",key.cgpa)}</div></div>
                                               }
                                         </div>
                                     </div>
@@ -210,7 +210,7 @@ class ResultPanel extends Component {
                                     <div className="tab-pane fade in show active" style={{overflow: 'auto'}} id="listView" role="tabpanel">
                                         <ResultTemplate type={this.state.type} results={this.state.results} view={this.props.view} printPoint={this.printPoint}/>
                                     </div>
-                                    <div className="tab-pane fade" id="dataTableView" role="tabpanel">
+                                    <div className="tab-pane fade" id="dataTableView" role="tabpanel" style={{overflow: 'auto'}}>
                                         <table id="resultDataTable" className="table table-striped table-bordered">
                                           <thead className="dataTableHeader">
 

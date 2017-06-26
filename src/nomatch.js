@@ -9,6 +9,11 @@ class NoMatch extends Component {
 	constructor(props) {
     	super(props);
     	this.dba = new DBA();
+
+    	this.state = {
+    		errorMessage : this.props.errorMessage ? this.props.errorMessage : "i am sorry",
+    		extraInfo : this.props.extraInfo ? this.props.extraInfo : ""
+    	}
   	}
 	render() {
 	    return (
@@ -16,7 +21,8 @@ class NoMatch extends Component {
 				<div className="mainNotFoundDiv">
 					<div className="div-content">
 						<img className="logo-404" src={image} alt=""/>
-						<h2 className="title-404">I am Sorry</h2>
+						<h2 className="title-404">{this.state.errorMessage}</h2>
+						<h4 className="extraInfo">{this.state.extraInfo}</h4>
 					</div>
 				</div>
 			</div>

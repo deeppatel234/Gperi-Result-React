@@ -144,3 +144,11 @@ table.dataTable .resultDataTable_length{
 .dataTables_paginate {
   float: right;
 }
+
+.brandColorfont {
+  color : #00625a !important;
+}
+
+.brandColorfont:hover{
+  color : #00625a !important;
+}

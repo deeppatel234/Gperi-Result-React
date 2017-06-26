@@ -202,16 +202,16 @@ class Sem extends Component {
                                                           <i className={"fa fa-trophy " + this.info.trophy[index+1]}></i>
                                                       </div>
                                                       <div style={{paddingTop: '12px'}}>
-                                                          <div className="matrix">SPI</div>
-                                                          <div className="grade">{this.state.top[index].spi.toFixed(2)}</div>
-                                                          <div className="enrollment">{this.state.top[index].enrollment}</div>
+                                                          <div className="matrix"><Link to={"student/"+this.state.top[index].enrollment} className="brandColorfont" target="_blank" >SPI</Link></div>
+                                                          <div className="grade"><Link to={"student/"+this.state.top[index].enrollment} className="brandColorfont" target="_blank" >{this.state.top[index].spi.toFixed(2)}</Link></div>
+                                                          <div className="enrollment"><Link to={"student/"+this.state.top[index].enrollment} className="brandColorfont" target="_blank" >{this.state.top[index].enrollment}</Link></div>
                                                       </div>
                                                   </div>)
                                               })
                                             : ""
                                         } 
                                     </div>
-                                    <div className="row">
+                                    <div className="row" style={{overflow: 'auto'}}>
                                         <table className="table table-sm" style={{ maxWidth: '97%'}}>
                                             <thead>
                                                 <tr>
@@ -228,7 +228,7 @@ class Sem extends Component {
                                                         return ( 
                                                         <tr key={index}>
                                                           <th scope="row">{index+1}</th>
-                                                          <td>{this.state.top[index].name}</td>
+                                                          <td><Link to={"student/"+this.state.top[index].enrollment} className="tabletd" target="_blank" >{this.state.top[index].name}</Link></td>
                                                           <td><Link to={"student/"+this.state.top[index].enrollment} className="tabletd" target="_blank" >{this.state.top[index].enrollment}</Link></td>
                                                           <td>{this.state.top[index].spi.toFixed(2)}</td>
                                                         </tr>)
@@ -296,7 +296,7 @@ class Sem extends Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="tab-pane fade" id="panel12" role="tabpanel">
+                            <div className="tab-pane fade" id="panel12" role="tabpanel" style={{overflow: 'auto'}}>
                                 <table className="table">
                                     <thead>
                                         <tr>

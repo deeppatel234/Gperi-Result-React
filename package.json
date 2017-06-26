@@ -12,7 +12,7 @@
   },
   "devDependencies": {
     "datatables.net": "^1.10.15",
-    "datatables.net-bs" : "^1.10.15",
+    "datatables.net-bs": "^1.10.15",
     "jquery": "^3.2.1",
     "react-scripts": "1.0.7"
   },

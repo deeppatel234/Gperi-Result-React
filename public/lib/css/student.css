@@ -16,11 +16,24 @@
   font-size: 20px;
   margin-top: -8px;
 }
+
+
 .studentinfo .studentheader .details {
   font-size: 19px;
   position: absolute;
   bottom: 20px;
 }
+
+@media only screen and (max-width: 768px) {
+    .studentinfo .studentheader .details {
+      bottom: -50px;
+    }
+
+    .studentheader {
+      height: 250px;
+    }
+}
+
 .studentinfo .graphs {
   width: 100%;
   margin-top: 15px;
