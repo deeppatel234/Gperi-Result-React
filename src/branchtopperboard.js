@@ -29,7 +29,6 @@ class BranchTopperBoard extends Component {
   	fetchData (params) {
   		var self = this;
   		this.dba.branchTop(this.info.branchDetail[params.branch].name).then(function(responce){
-  		    console.log("responce", responce);
 	  		self.setState({
 	  	    	isLoading : 0,
 	  	    	branch : params.branch,

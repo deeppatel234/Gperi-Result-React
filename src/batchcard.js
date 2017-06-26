@@ -142,12 +142,12 @@ class BatchCard extends Component {
                                                 return (
                                                     <div className="box" key={index}>
                                                         <div className="trophy">
-                                                            <i className={"fa fa-trophy " + this.info.trophy[index+1]} aria-hidden="true"></i>
+                                                            <Link to={"student/"+key.enrollment} className="brandColorfont" target="_blank" ><i className={"fa fa-trophy " + this.info.trophy[index+1]} aria-hidden="true"></i></Link>
                                                         </div>
                                                         <div>
-                                                            <div className="matrix">CGPA</div>
-                                                            <div className="grade">{this.info.round(key.cgpa)}</div>
-                                                            <div className="enrollment">{key.enrollment}</div>
+                                                            <div className="matrix"><Link to={"student/"+key.enrollment} className="brandColorfont" target="_blank" >CGPA</Link></div>
+                                                            <div className="grade"><Link to={"student/"+key.enrollment} className="brandColorfont" target="_blank" >{this.info.round(key.cgpa)}</Link></div>
+                                                            <div className="enrollment"><Link to={"student/"+key.enrollment} className="brandColorfont" target="_blank" >{key.enrollment}</Link></div>
                                                         </div>
                                                     </div>
                                                 )
@@ -160,12 +160,12 @@ class BatchCard extends Component {
                                                 return (
                                                     <div className="box" key={index}>
                                                         <div className="trophy">
-                                                            <i className={"fa fa-trophy " + this.info.trophy[index+1]} aria-hidden="true"></i>
+                                                            <Link to={"student/"+key.enrollment} className="brandColorfont" target="_blank" ><i className={"fa fa-trophy " + this.info.trophy[index+1]} aria-hidden="true"></i></Link>
                                                         </div>
                                                         <div>
-                                                            <div className="matrix">CPI</div>
-                                                            <div className="grade">{this.info.round(key.cpi)}</div>
-                                                            <div className="enrollment">{key.enrollment}</div>
+                                                            <div className="matrix"><Link to={"student/"+key.enrollment} className="brandColorfont" target="_blank" >CPI</Link></div>
+                                                            <div className="grade"><Link to={"student/"+key.enrollment} className="brandColorfont" target="_blank" >{this.info.round(key.cpi)}</Link></div>
+                                                            <div className="enrollment"><Link to={"student/"+key.enrollment} className="brandColorfont" target="_blank" >{key.enrollment}</Link></div>
                                                         </div>
                                                     </div>
                                                 )
