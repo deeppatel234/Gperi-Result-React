@@ -1,0 +1,17 @@
+.navbar {
+	display: none;
+}
+
+.page-footer { 
+	display: none;
+}
+
+body {
+    height:100%;
+}
+
+.mainDiv {
+	background: #00625a;
+    width: 100%;
+    height: 500px;
+}

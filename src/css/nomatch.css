@@ -1,0 +1,23 @@
+.mainNotFoundDiv{
+	background-color: #00625a;
+    text-align: center;
+    overflow: hidden;
+    padding: 40px 20px 0
+}
+
+.logo-404 {
+    max-width: 90%
+}
+
+.div-content {
+    margin: 0 auto;
+    max-width: 100%
+}
+.title-404{
+	color: #FFF;
+    margin-top: 15px;
+    text-transform: uppercase;
+    font-size: 80px;
+    max-width: 90%;
+    margin: 35px auto 50px;
+}
