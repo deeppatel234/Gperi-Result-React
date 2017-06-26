@@ -7,18 +7,20 @@ import NoMatch from './nomatch.js';
 import Sem from './sem.js';
 import Header from './header.js';
 import Footer from './footer.js';
-import { Route, HashRouter} from 'react-router-dom'
+import { Route, HashRouter, Switch} from 'react-router-dom'
 import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(
     <HashRouter>
    		<div>
    			<Header />
-	    	<Route exact path="/" component={Dashboard}/>
-	    	<Route path="/batch/:id" component={Batch}/>
-	    	<Route path="/student/:id" component={Student}/>
-	    	<Route path="/sem/:branch/:batch/:sem" component={Sem}/>
-	    	<Route path="*" component={NoMatch}/>
+			<Switch>
+				<Route exact path="/" component={Dashboard}/>
+				<Route path="/batch/:id" component={Batch}/>
+				<Route path="/student/:id" component={Student}/>
+				<Route path="/sem/:branch/:batch/:sem" component={Sem}/>
+				<Route path="*" component={NoMatch}/>
+			</Switch>
 	    	<Footer />
       	</div>
     </HashRouter>

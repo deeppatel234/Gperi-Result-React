@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import DBA from './dba.js';
+import image from './img/notfound.png';
+import './css/nomatch.css';
+
 
 class NoMatch extends Component {
 
@@ -7,19 +10,16 @@ class NoMatch extends Component {
     	super(props);
     	this.dba = new DBA();
   	}
-   	componentWillMount() {
-
-  	}
-  	componentWillReceiveProps (nextProps) {
-
-  	}
-  	componentDidMount() {
-  	}
 	render() {
 	    return (
-	        <div>
-	        	
-	      	</div>
+			<div>
+				<div className="mainNotFoundDiv">
+					<div className="div-content">
+						<img className="logo-404" src={image} alt=""/>
+						<h2 className="title-404">I am Sorry</h2>
+					</div>
+				</div>
+			</div>
 	    );
 	}
 }
