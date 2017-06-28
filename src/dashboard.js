@@ -76,7 +76,7 @@ class Dashboard extends Component {
 			        	  	<Search />
 			        	</div>
 			            <div className="col-md-12">
-			                <section className="section section-blog-fw">
+			                <section className="section section-blog-fw" style={{marginBottom: '0px'}}>
 			                    <div className="row">
 			                        <div className="col-md-12">
 			                            <div className="view overlay hm-white-slight">
@@ -85,7 +85,7 @@ class Dashboard extends Component {
 			                                    <div className=""></div>
 			                                </a>
 			                            </div>
-			                            <div className="jumbotron">
+			                            <div className="jumbotron" style={{marginBottom: '10px'}}>
 			                                <div className="social-counters ">
 			                                    <img className="img-responsive center-block logo" src={logo} alt="logo"/>
 			                                </div>
@@ -99,7 +99,7 @@ class Dashboard extends Component {
 			            </div>
 			            <div className="col-md-12">
 			                <section className="section">
-			                    <h1 className="section-heading">Gujarat Power Engineering And Research Institute</h1>
+			                    <h1 className="section-heading" style={{margin : '30px 0'}}>Gujarat Power Engineering And Research Institute</h1>
 			                    <div className="row">
 			                       <BranchCard branch="COMPUTER ENGINEERING" count={this.state}/>
 			                       <BranchCard branch="MECHANICAL ENGINEERING" count={this.state}/>
@@ -110,8 +110,8 @@ class Dashboard extends Component {
 			            </div>
 			            <div className="col-md-12">
 			                <section className="section feature-box">
-			                    <h1 className="section-heading">Why is it so great?</h1>
-			                    <p className="section-description lead">GPERI Result is a fast, easy, reliable and automated data analytic platform.drives with advanced technology and robust data engine.</p>
+			                    <h1 className="section-heading" style={{margin : '30px 0'}}>Why is it so great?</h1>
+			                    <p className="section-description lead" style={{marginBottom : '3rem'}}>GPERI Result is a fast, easy, reliable and automated data analytic platform.drives with advanced technology and robust data engine.</p>
 			                    <div className="row features-small">
 			                        <div className="col-md-7 mb-r center-on-small-only">
 			                            <div id="carousel-example-2" className="carousel slide carousel-fade" data-ride="carousel" data-interval="3000">
@@ -192,10 +192,10 @@ class Dashboard extends Component {
 			                </section>
 			            </div>
 			            <div className="col-md-12">
-			                <section className="section section-blog-fw">
+			                <section className="section section-blog-fw" style={{marginBottom : '1rem' , marginTop : '2rem'}}>
 			                    <div className="row">
 			                        <div className="col-md-12">
-			                            <div className="jumbotron">
+			                            <div className="jumbotron" style={{marginBottom : '0'}}>
 			                                <h2>Gujarat Power Engineering And Research Institute</h2>
 			                                <div className="social-counters ">
 			                                    <div className="social-counters ">
