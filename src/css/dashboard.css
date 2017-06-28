@@ -1,17 +1,53 @@
-.navbar {
-	display: none;
-}
-
-.page-footer { 
-	display: none;
-}
-
-body {
-    height:100%;
-}
-
 .mainDiv {
-	background: #00625a;
-    width: 100%;
-    height: 500px;
+  margin-top: 5px;
+}
+.mainDiv a,
+.mainDiv a:hover {
+  color: #00625a !important;
+}
+.mainDiv .social-counters a {
+  color: #fff  !important;
+}
+.mainDiv .cardLogos {
+  text-shadow: none;
+  font-size: 107px;
+  color: #ffffff !important;
+  width: 100%;
+  line-height: 181px;
+  border-radius: 0%;
+  text-align: center;
+  background-color: #00625a !important;
+}
+.mainDiv .logo {
+  display: inline;
+  box-shadow: 0 0 0 0;
+  width: 400px;
+}
+.mainDiv .mb-r {
+  margin-bottom: 2rem!important;
+}
+.mainDiv .branchCard {
+  background-color: #00625a;
+  color: #FFF;
+  padding: 14px;
+  margin-top: 20px;
+}
+.mainDiv .branchCard .batchLogoclassName {
+  font-size: 80px;
+  display: inline;
+}
+.mainDiv .branchCard .studentTotal {
+  display: inline;
+  font-size: 95px;
+}
+.mainDiv .branchCard .studentLogo {
+  display: inline;
+  font-size: 32px;
+  font-family: Roboto, sans-serif;
+}
+.mainDiv .carousel-indicators li {
+  background-color: #00c8b8;
+}
+.mainDiv .carousel-indicators .active {
+  background-color: #00625a;
 }

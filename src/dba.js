@@ -39,6 +39,10 @@ class DBA {
 	batchGraph (branchName) { 
 		return axios.post(this.hostName+"/batchgraph?branch="+branchName);
 	}
+
+	studentCount () {
+		return axios.post(this.hostName+"/studentcount");	
+	}
 } 
 
 export default DBA;
