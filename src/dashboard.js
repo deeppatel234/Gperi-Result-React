@@ -10,6 +10,7 @@ import gperi from './img/gperi.jpg';
 import batchPhoto from './img/batch.png';
 import semPhoto from './img/sem.png';
 import studentPhoto from './img/student.png';
+import { Link } from 'react-router-dom'
 
 class Dashboard extends Component {
 
@@ -48,20 +49,20 @@ class Dashboard extends Component {
     		return (
     			<div className="col-md-6">
                     <div className="branchCard view overlay hm-white-slight z-depth-2">
-                        <h3>{props.branch}</h3>
-                        <a>
-                            <div className="mask waves-effect waves-light"></div>
-                        </a>
+                        <h3>{self.info.branchDetail[props.branch].name}</h3>
+                        <Link to={"batch/"+props.branch}>
+                        	<div className="mask waves-effect waves-light"></div>
+                        </Link>
                         <div>
                             <div className="batchLogoclassName">
-                                <i className={self.info.iconsClass[props.branch]}></i>
+                                <i className={self.info.branchDetail[props.branch].logo}></i>
                             </div>
                             <div className="studentTotal">
-                                {props.count.count[props.branch]}
+                                {props.count.count[self.info.branchDetail[props.branch].name]}
                             </div>
                             <div className="studentLogo">
                                 <h3 style={{display: "inline"}}><i className="fa fa-user" aria-hidden="true"></i>
-                                    Students</h3>
+                                    <span className="studentIcon">Students</span></h3>
                             </div>
                         </div>
                     </div>
@@ -101,10 +102,10 @@ class Dashboard extends Component {
 			                <section className="section">
 			                    <h1 className="section-heading" style={{margin : '30px 0'}}>Gujarat Power Engineering And Research Institute</h1>
 			                    <div className="row">
-			                       <BranchCard branch="COMPUTER ENGINEERING" count={this.state}/>
-			                       <BranchCard branch="MECHANICAL ENGINEERING" count={this.state}/>
-			                       <BranchCard branch="ELECTRICAL ENGINEERING" count={this.state}/>
-			                       <BranchCard branch="CIVIL ENGINEERING" count={this.state}/>
+			                       <BranchCard branch="computer" count={this.state}/>
+			                       <BranchCard branch="civil" count={this.state}/>
+			                       <BranchCard branch="electrical" count={this.state}/>
+			                       <BranchCard branch="mechanical" count={this.state}/>
 			                    </div>
 			                </section>
 			            </div>
@@ -137,54 +138,46 @@ class Dashboard extends Component {
 			                                        </div>
 			                                    </div>
 			                                </div>
-			                                <a className="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
-			                                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-			                                    <span className="sr-only">Previous</span>
-			                                </a>
-			                                <a className="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
-			                                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
-			                                    <span className="sr-only">Next</span>
-			                                </a>
 			                            </div>
 			                        </div>
 			                        <div className="col-md-5 center-on-small">
 			                            <div className="row">
 			                                <div className="col-1">
-			                                    <i className="fa fa-bank indigo-text"></i>
+			                                    <i className="fa fa-mobile brandText"></i>
 			                                </div>
 			                                <div className="col-10">
-			                                    <h4 className="feature-title">Safety</h4>
-			                                    <p className="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores nam, aperiam minima assumenda deleniti hic.</p>
+			                                    <h4 className="feature-title">Responsive</h4>
+			                                    <p className="grey-text">Reach us through any devices we will show you best of us.Website is compatible through all mobile, tablet and desktop.</p>
 			                                </div>
 			                            </div>
-			                            <div style={{height:"50px"}}></div>
+			                            <div style={{height:"40px"}}></div>
 			                            <div className="row">
 			                                <div className="col-1">
-			                                    <i className="fa fa-code indigo-text"></i>
+			                                    <i className="fa fa-code brandText"></i>
 			                                </div>
 			                                <div className="col-10">
 			                                    <h4 className="feature-title">Technology</h4>
-			                                    <p className="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores nam, aperiam minima assumenda deleniti hic.</p>
+			                                    <p className="grey-text">this platform is runs on powerfull JavaScript engine and datastorage provide by efficient MongoDB. Combination of this get us tremendous amount of data in just a one moment.</p>
 			                                </div>
 			                            </div>
-			                            <div style={{height:"50px"}}></div>
+			                            <div style={{height:"40px"}}></div>
 			                            <div className="row">
 			                                <div className="col-1">
-			                                    <i className="fa fa-bar-chart indigo-text"></i>
+			                                    <i className="fa fa-bar-chart brandText"></i>
 			                                </div>
 			                                <div className="col-10">
-			                                    <h4 className="feature-title">Graph Repre</h4>
-			                                    <p className="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores nam, aperiam minima assumenda deleniti hic.</p>
+			                                    <h4 className="feature-title">Graphs</h4>
+			                                    <p className="grey-text">Using our powerfull data analytic engine we will show you your precise data using various representations like graphs.</p>
 			                                </div>
 			                            </div>
-			                            <div style={{height:"50px"}}></div>
+			                            <div style={{height:"40px"}}></div>
 			                            <div className="row">
 			                                <div className="col-1">
-			                                    <i className="fa fa-bar-chart indigo-text"></i>
+			                                    <i className="fa fa-fighter-jet brandText"></i>
 			                                </div>
 			                                <div className="col-10">
-			                                    <h4 className="feature-title">Graph Repre</h4>
-			                                    <p className="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores nam, aperiam minima assumenda deleniti hic.</p>
+			                                    <h4 className="feature-title">Fast and Autonomous</h4>
+			                                    <p className="grey-text">Our intelligent data driven process will show you accurate data within blink of your eye.You can bring all your data within same day of announcements of result.</p>
 			                                </div>
 			                            </div>
 			                        </div>

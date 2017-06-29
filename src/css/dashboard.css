@@ -39,6 +39,8 @@
 .mainDiv .branchCard .studentTotal {
   display: inline;
   font-size: 95px;
+  margin-right: 40px;
+  margin-left: 20px;
 }
 .mainDiv .branchCard .studentLogo {
   display: inline;
@@ -50,4 +52,11 @@
 }
 .mainDiv .carousel-indicators .active {
   background-color: #00625a;
+}
+
+
+@media only screen and (max-width: 768px) {
+    .studentIcon{
+       display: none;
+    }
 }
