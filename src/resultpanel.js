@@ -42,6 +42,7 @@ class ResultPanel extends Component {
       var dataTableHeader = $('.dataTableHeader tr');
       var dataTableBody = $('.dataTableBody');
 
+      dataTableHeader.append('<th>Rank</th>');
       dataTableHeader.append('<th>Enrollment</th>');
       dataTableHeader.append('<th>Name</th>');
       _.each(results[0].subject,function(subjects){
@@ -52,9 +53,11 @@ class ResultPanel extends Component {
       dataTableHeader.append('<th>CPI</th>');
       var raw;
       var self = this;
-      _.each(results,function(student){
+      var sortedResult = _.sortBy(results, function(student){ return student.spi }).reverse();
+      _.each(sortedResult,function(student,index){
           if(student.subject.length === subjectsLength) {
             raw = $("<tr></tr>");
+            raw.append('<td>'+(index+1)+'</td>');
             raw.append('<td>'+student.enrollment+'</td>');
             raw.append('<td>'+student.name+'</td>');
               _.each(student.subject,function(subject){
